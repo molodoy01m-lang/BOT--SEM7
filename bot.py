@@ -40,12 +40,12 @@ intents.voice_states = True
 intents.moderation = True
 intents.guilds = True
 
-AUTO_ROLE_ID = 1555292717830119514
-WELCOME_CHANNEL_ID = 1497873420216439016
-LEVEL_CHANNEL_ID = 1498243470513405992
+AUTO_ROLE_ID = 1562061542122594445
+WELCOME_CHANNEL_ID = 1562024826275889213
+LEVEL_CHANNEL_ID = 1562062027030007868
 
 CLAN_LOG_CHANNEL_ID = 1558250408617443398 
-SERVER_LOG_CHANNEL_ID = 1535037929163063548 
+SERVER_LOG_CHANNEL_ID = 1562062403678502963 
 
 SERVER_CONNECT_IP = "connect connect.alashproject.kz"
 
@@ -1165,7 +1165,7 @@ class MyBot(commands.Bot):
     async def on_ready(self):
         activity = discord.Activity(
             type=discord.ActivityType.watching, 
-            name="alashproject.kz | /help"
+            name="sem7.discord | /help"
         )
         await self.change_presence(activity=activity)
         print("==========================================")
