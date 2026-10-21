@@ -40,12 +40,12 @@ intents.voice_states = True
 intents.moderation = True
 intents.guilds = True
 
-AUTO_ROLE_ID = 1562061542122594445
-WELCOME_CHANNEL_ID = 1562024826275889213
-LEVEL_CHANNEL_ID = 1562062027030007868
+AUTO_ROLE_ID = 1548371779523837953
+WELCOME_CHANNEL_ID = 1548371780538867743
+LEVEL_CHANNEL_ID = 1548371780929060879
 
 CLAN_LOG_CHANNEL_ID = 1558250408617443398 
-SERVER_LOG_CHANNEL_ID = 1562062403678502963 
+SERVER_LOG_CHANNEL_ID = 1548371780035543144 
 
 SERVER_CONNECT_IP = "connect connect.alashproject.kz"
 
@@ -56,18 +56,18 @@ clans_db = {}
 user_clan_mapping = {}
 active_lobbies = {}
 
-GIRL_BANNER_URL = "https://media.discordapp.net/attachments/1544309714962227230/1557815971660435456/banner_girl.png?ex=6ac92cae&is=6ac7db2e&hm=250e0baedfe61fc5baff21e59e0e6bd61f5e494d88ade315be12b6e3c199c916&=&format=webp&quality=lossless&width=2048&height=729"
+GIRL_BANNER_URL = "https://cdn.discordapp.com/attachments/1544309714962227230/1558116524093341727/banner_girl.png?ex=6ad96dd7&is=6ad81c57&hm=0df121c732dd219e0a893923b0744965c8b52b8f44a02ebe03e794b1746e9e&"
 MEDIA_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o"
 TICKET_BANNER_URL = "https://multibot.pro/api/embeds/images/g4mmec3lwfcrwi4l"
 
 STAFF_ROLE_IDS = [
-    1557002520696463431, 1532745811778207985, 1530888080905601044,
-    1530890552676188301, 1530886657530925256, 1530888429888602152
+    1548371779548876907, 1548371779548876904, 1548371779548876903,
+    1548371779544813606, 1548371779544813607, 1548371779544813605
 ]
-GIRL_STAFF_ROLE_IDS = [1532745811778207985, 1530890552676188301, 1530886657530925256]
-MEDIA_STAFF_ROLE_IDS = [1530888828246556753, 1532745811778207985, 1530886657530925256]
+GIRL_STAFF_ROLE_IDS = [1548371779548876907, 1548371779548876904, 1548371779544813607]
+MEDIA_STAFF_ROLE_IDS = [1548371779548876902, 1548371779548876907, 1548371779548876904]
 
-MEDIA_ROLE_ID = 1530924449912586351
+MEDIA_ROLE_ID = 1548371779544813603
 temp_voice_channels = {}
 CYBERSHOK_MAPS = ["de_mirage", "de_inferno", "de_dust2", "de_nuke", "de_anubis", "de_ancient", "de_vertigo"]
 
@@ -497,37 +497,37 @@ class VoiceControlPanel(View):
             return False, "❌ Вы не являетесь владельцем этого приватного канала!"
         return True, voice_channel
 
-    @discord.ui.button(emoji="🔓", style=discord.ButtonStyle.secondary, custom_id="vc_open", row=0)
+    @discord.ui.button(emoji="<:685116unlock:1562476005250039979>", style=discord.ButtonStyle.secondary, custom_id="vc_open", row=0)
     async def open_channel(self, interaction: discord.Interaction, button: Button):
         is_ok, result = self.check_owner(interaction)
         if not is_ok: return await interaction.response.send_message(result, ephemeral=True)
         await result.set_permissions(interaction.guild.default_role, connect=True)
-        await interaction.response.send_message("🔓 Канал открыт для всех.", ephemeral=True)
+        await interaction.response.send_message("<:685116unlock:1562476005250039979> Канал открыт для всех.", ephemeral=True)
 
-    @discord.ui.button(emoji="👥", style=discord.ButtonStyle.secondary, custom_id="vc_add_user", row=0)
+    @discord.ui.button(emoji="<:40421adduser:1562476318082338877>", style=discord.ButtonStyle.secondary, custom_id="vc_add_user", row=0)
     async def add_user(self, interaction: discord.Interaction, button: Button):
         is_ok, _ = self.check_owner(interaction)
         if not is_ok: return await interaction.response.send_message(_, ephemeral=True)
         await interaction.response.send_message("Выберите пользователя:", view=UserActionView("add"), ephemeral=True)
 
-    @discord.ui.button(emoji="✏️", style=discord.ButtonStyle.secondary, custom_id="vc_rename", row=0)
+    @discord.ui.button(emoji="<:904340pencil:1562476055518904490>", style=discord.ButtonStyle.secondary, custom_id="vc_rename", row=0)
     async def rename_channel(self, interaction: discord.Interaction, button: Button):
         is_ok, _ = self.check_owner(interaction)
         if not is_ok: return await interaction.response.send_message(_, ephemeral=True)
         await interaction.response.send_modal(RenameVoiceModal())
 
-    @discord.ui.button(emoji="👑", style=discord.ButtonStyle.secondary, custom_id="vc_transfer", row=1)
+    @discord.ui.button(emoji="<:807617yellowcrown:1562476141787222078>", style=discord.ButtonStyle.secondary, custom_id="vc_transfer", row=1)
     async def transfer_owner(self, interaction: discord.Interaction, button: Button):
         is_ok, _ = self.check_owner(interaction)
         if not is_ok: return await interaction.response.send_message(_, ephemeral=True)
         await interaction.response.send_message("Выберите нового владельца:", view=UserActionView("transfer"), ephemeral=True)
 
-    @discord.ui.button(emoji="🔒", style=discord.ButtonStyle.secondary, custom_id="vc_close", row=1)
+    @discord.ui.button(emoji="<:998751lock:1562476028687945838>", style=discord.ButtonStyle.secondary, custom_id="vc_close", row=1)
     async def close_channel(self, interaction: discord.Interaction, button: Button):
         is_ok, result = self.check_owner(interaction)
         if not is_ok: return await interaction.response.send_message(result, ephemeral=True)
         await result.set_permissions(interaction.guild.default_role, connect=False)
-        await interaction.response.send_message("🔒 Канал закрыт от посторонних.", ephemeral=True)
+        await interaction.response.send_message("<:998751lock:1562476028687945838> Канал закрыт от посторонних.", ephemeral=True)
 
     @discord.ui.button(emoji="🚫", style=discord.ButtonStyle.secondary, custom_id="vc_kick_user", row=1)
     async def kick_user_btn(self, interaction: discord.Interaction, button: Button):
@@ -1165,7 +1165,7 @@ class MyBot(commands.Bot):
     async def on_ready(self):
         activity = discord.Activity(
             type=discord.ActivityType.watching, 
-            name="sem7.discord | /help"
+            name="tw1x.kz | /help"
         )
         await self.change_presence(activity=activity)
         print("==========================================")
@@ -1582,11 +1582,11 @@ async def send_voice_panel(ctx):
     embed = discord.Embed(
         description=(
             "# **Управление приватной комнатой**\n\n"
-            "🔓 • Открыть канал\n"
-            "👥 • Добавить пользователя\n"
-            "✏️ • Переименовать канал\n\n"
-            "👑 • Передать канал\n"
-            "🔒 • Закрыть канал\n"
+            "<:685116unlock:1562476005250039979> • Открыть канал\n"
+            "<:40421adduser:1562476318082338877> • Добавить пользователя\n"
+            "<:904340pencil:1562476055518904490> • Переименовать канал\n\n"
+            "<:807617yellowcrown:1562476141787222078> • Передать канал\n"
+            "<:998751lock:1562476028687945838> • Закрыть канал\n"
             "🚫 • Выгнать пользователя\n\n"
             "*Кнопки активны в вашем войсе.*"
         ), 
@@ -1594,22 +1594,28 @@ async def send_voice_panel(ctx):
     )
     await ctx.send(embed=embed, view=VoiceControlPanel())
 
-
 @bot.command()
 async def send_girl_ticket(ctx):
-    file = await get_discord_file_from_url(GIRL_BANNER_URL, "banner_girl.png")
-    if file:
-        img_embed = discord.Embed(color=discord.Color.from_rgb(255, 105, 180)).set_image(url="attachment://banner_girl.png")
-        await ctx.send(file=file, embed=img_embed)
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+    img_embed = discord.Embed(color=discord.Color.from_rgb(255, 105, 180))
+    img_embed.set_image(url=GIRL_BANNER_URL)
+    await ctx.send(embed=img_embed)
     text_embed = discord.Embed(
         description=(
-            "<:793670heart:1503151722611347586> **Роль Девушка**\n\n"
-            "<a:a_pink_dot:1503133833548271646> Нажмите кнопку ниже для создания тикета."
-        ), 
+            "<a:132078whitespaceheart:1562454784387317920> **Роль Девушка**\n\n"
+            "<a:a_pink_dot:1562471740410560532> Нажмите кнопку ниже, чтобы создать тикет для верификации и получения роли Девушка\n\n"
+            "<a:15770animatedarrowyellow:1562455396814290994> **Информация**\n"
+            "<a:a_pink_dot:1562471740410560532> Создайте тикет для верификации\n"
+            "<a:a_pink_dot:1562471740410560532> Предоставьте доказательства\n"
+            "<a:a_pink_dot:1562471740410560532> Модераторы рассмотрят ваш запрос\n\n"
+            "<a:15770animatedarrowyellow:1562455396814290994> Чтобы получить роль, откройте тикет или обратитесь к администрации сервера."
+        ),
         color=discord.Color.from_rgb(255, 105, 180)
     )
     await ctx.send(embed=text_embed, view=GirlTicketMainView())
-
 
 @bot.command()
 async def send_ticket(ctx):
@@ -1619,8 +1625,13 @@ async def send_ticket(ctx):
         await ctx.send(file=file, embed=img_embed)
     text_embed = discord.Embed(
         description=(
-            "<:18690member:1503151722611347586> **Система поддержки ALASH PROJECT KZ**\n\n"
-            "<a:15770animatedarrowyellow:1503049767016595586> **Возникли вопросы или проблемы? Опишите ситуацию**"
+            "<:739224member:1562452681497378846> **Система поддержки ALASH PROJECT KZ**\n\n"
+            "<a:15770animatedarrowyellow:1562455396814290994> **Возникли вопросы, проблемы или нужна помощь? Опишите ситуацию**\n\n"
+            "<a:15770animatedarrowyellow:1562455396814290994> **Что можно оформить через тикет?**\n"
+            "<a:a_pink_dot:1562471740410560532> Жалобы на игроков или пользователей.\n"
+            "<a:a_pink_dot:1562471740410560532> Вопросы по серверу или Discord.\n"
+            "<a:a_pink_dot:1562471740410560532> Проблемы с верификацией.\n"
+            "<a:a_pink_dot:1562471740410560532> Ошибки, баги и технические неполадки."
         ), 
         color=discord.Color.from_rgb(57, 255, 20)
     )
@@ -1635,9 +1646,13 @@ async def send_media(ctx):
         await ctx.send(file=file, embed=img_embed)
     text_embed = discord.Embed(
         description=(
-            "<a:a_pink_dot:1503133833548271646> Наш проект готов к сотрудничеству с медиа игроками.\n\n"
-            "<a:15770animatedarrowyellow:1503049767016595586> **Что вы получите**\n"
-            "<a:a_pink_dot:1503133833548271646> Роль <@&{MEDIA_ROLE_ID}>"
+            "<a:a_pink_dot:1562471740410560532> Наш проект готов к сотрудничеству с вами как с медиа игроком (TikTok стримы/видео).\n\n"
+            "<a:a_pink_dot:1562471740410560532> Мы предлагаем партнерство, где ваша аудитория и активность помогают продвижению проекта.\n\n"
+            "<a:a_pink_dot:1562471740410560532> Мы уверены, что совместно сможем создавать качественный и интересный контент.\n\n"
+            "<a:15770animatedarrowyellow:1562455396814290994> **Что вы получите**\n"
+            "<a:a_pink_dot:1562471740410560532> Привилегию на сервере \"Медиа\"\n"
+            "<a:a_pink_dot:1562471740410560532> Роль в Discord <@&1548371779544813603>\n"
+            "<a:a_pink_dot:1562471740410560532> В привилегию \"MEDIA\" входит весь функционал привилегии \"ALASH\""
         ).format(MEDIA_ROLE_ID=MEDIA_ROLE_ID), 
         color=discord.Color.from_rgb(180, 0, 0)
     )
@@ -1651,14 +1666,14 @@ async def send_clan(ctx):
         description=(
             "Создай клан, собери команду и бросай вызов другим кланам в матчах 5v5\n\n"
             "<a:15770animatedarrowyellow:1503049767016595586> **Как начать**\n"
-            "<a:a_pink_dot:1503133833548271646> Нажми \"Создать клан\" и введи название и тег\n"
-            "<a:a_pink_dot:1503133833548271646> Пригласи минимум 4 участников через \"Мой клан\"\n"
-            "<a:a_pink_dot:1503133833548271646> Бросай вызовы через меню управления кланом\n\n"
-            "<a:15770animatedarrowyellow:1503049767016595586> **Правила**\n"
-            "<a:a_pink_dot:1503133833548271646> Минимум 5 участников для участия в войнах\n"
-            "<a:a_pink_dot:1503133833548271646> Cooldown между вызовами одному клану — 2 ч.\n"
-            "<a:a_pink_dot:1503133833548271646> Если клан не собрал 5 игроков за 5 мин до матча — NO-SHOW\n"
-            "<a:a_pink_dot:1503133833548271646> Тег клана автоматически добавляется к нику каждого участника\n\n"
+            "<a:205667glowingdotwhite:1503133833548271646> Нажми \"Создать клан\" и введи название и тег\n"
+            "<a:205667glowingdotwhite:1503133833548271646> Пригласи минимум 4 участников через \"Мой клан\"\n"
+            "<a:205667glowingdotwhite:1503133833548271646> Бросай вызовы через меню управления кланом\n\n"
+            "<a:15770animatedarrowyellow:1562455396814290994> **Правила**\n"
+            "<a:205667glowingdotwhite:1503133833548271646> Минимум 5 участников для участия в войнах\n"
+            "<a:205667glowingdotwhite:1503133833548271646> Cooldown между вызовами одному клану — 2 ч.\n"
+            "<a:205667glowingdotwhite:1503133833548271646> Если клан не собрал 5 игроков за 5 мин до матча — NO-SHOW\n"
+            "<a:205667glowingdotwhite:1503133833548271646> Тег клана автоматически добавляется к нику каждого участника\n\n"
             "**Alash project kz**"
         ),
         color=discord.Color.from_rgb(180, 0, 0)
